@@ -6,19 +6,13 @@ const app = express()
 
 /* Run connection to db */
 run().catch(console.dir)
-app.use(express.static('./public/'))
+app.use(express.static(__dirname + '/public'))
+app.use(express.urlencoded({extended: true}))
 
-app.get('/register', (req, res)=>{
-  res.sendFile(path.join(__dirname, '/public/register.html'))
-})
-app.post('/register', (req, res)=>{
-  console.log(req)
-  res.send("REGISTER - POST")
-})
-
-app.post('/login', (req, res)=>{
-  console.log(req)
-  res.status(200)
+app.post('/register', async (req, res)=>{
+  const email = await req.body
+  console.log(email)
+  res.end()
 })
 
 // starts a simple http server locally on port 3000
