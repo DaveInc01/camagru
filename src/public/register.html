@@ -10,7 +10,7 @@
 </head>
 <body>
   <section class="vh-100">
-    <form id="reg-form" oninput='rePassword.setCustomValidity(password.value != rePassword.value ? "Passwords do not match." : "")'>
+    <form id="reg-form" action="http://localhost:3000/register" method="POST" oninput='rePassword.setCustomValidity(password.value != rePassword.value ? "Passwords do not match." : "")'>
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -37,7 +37,7 @@
                   </div>
   
     
-                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5 align-center w-100" onclick="register(event)">Register</button>
+                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5 align-center w-100" type="submit">Register</button>
     
                   <div class="d-flex justify-content-center text-center mt-4 pt-1 ">
                     <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
