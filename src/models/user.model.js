@@ -1,6 +1,11 @@
 const mongoose = require('mongose')
 
 const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
     username: {
         type: String,
         required: true,
@@ -10,10 +15,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    email: {
+    token: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     confirmed: {
         type: Boolean,
