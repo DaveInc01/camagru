@@ -1,10 +1,10 @@
 // const run = require('./connect')
+const dotenv = require('dotenv').config();
 const path = require('path')
 const express = require('express')
-const PORT = 3000
+const PORT = process.env.PORT
 const app = express()
 const {register, jwtVerify} = require('./controllers/register.js')
-
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://daveincmine:UayR6rNoBYWMR1so@camagrucluster.lg6pv.mongodb.net/?retryWrites=true&w=majority&appName=CamagruCluster";
 
@@ -26,6 +26,4 @@ app.get('/verify-email/:token', jwtVerify)
 app.listen(3000, ()=>{
   console.log(`server is listen port:${PORT}`)
 })  
-
-exports.PORT = PORT
 

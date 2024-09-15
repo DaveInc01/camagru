@@ -2,7 +2,8 @@ const dotenv = require('dotenv').config();
 const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
-const PORT = require('../app.js')
+const PORT = process.env.PORT
+
 // const jwt = dotenv.config()
 const emailTransporter = nodemailer.createTransport({
 service: 'gmail',
@@ -11,7 +12,6 @@ auth: {
     pass: process.env.OWNERPASS
   }
 })
-
 async function compareData(user){
   let existing = await User.findOne({username: user.username})
   if(existing != null)
@@ -33,16 +33,22 @@ async function register(req, res){
       password: user_data.password,
       token: emailToken
     }); 
-    // console.log(User.findOne({username: "Davit"}))
-    try{
-      compareData(user)
-    }
-    catch(err){
-      res.send(err)
-    }
+    // try{
+    //   User.collection.drop({email: 0})
+    // }
+    // catch(err){
+    //   console.log(err)
+    // }
+    // try{
+    //   await compareData(user)
+    // }
+    // catch(err){
+    //   res.send(err)
+    // }
     await user.save().then((result)=>{
       const verificationUrl = `http://localhost:${PORT}/verify-email/${emailToken}`;
-    const mailOptions = {
+      console.log(verificationUrl)
+      const mailOptions = {
       from: process.env.OWNEREMAIL,
       to: user_data.email,
       subject: 'Verify Your Email',
@@ -57,7 +63,7 @@ async function register(req, res){
       res.send(`The email can't be sent\n${err}`)
     }
     }).catch((err)=>{
-      // console.log(err)
+      console.log(err)
       res.send("Can't save User, username or email is not unique")
     })
     
@@ -66,17 +72,18 @@ async function register(req, res){
 function jwtVerify(req,res){
   const {token} = req.params
   console.log(token)
-  // const findToken = User.findOne({token})
-  // if ()
+  const findToken = User.findOne({token: token})
+  console.log(findToken.confirmed)
+  // if  ()
   // jwt.verify(token, process.env.JWT_SECRET, function(err, decoded){
   //   if(err){
   //     console.log(err)
   //     res.send(`It's some error ocured, try to reregiter in camagru.com`)
   //   }
-    res.send()
   // })
+  res.send('<h1>BUENO</h1>')
 }
 module.exports = {
+  jwtVerify,
   register,
-  jwtVerify
 }
