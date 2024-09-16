@@ -2,6 +2,7 @@ const dotenv = require('dotenv').config();
 const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
+const md5 = require('md5')
 const PORT = process.env.PORT
 
 // const jwt = dotenv.config()
@@ -69,19 +70,21 @@ async function register(req, res){
     
 }
 
-function jwtVerify(req,res){
+async function jwtVerify(req,res){
   const {token} = req.params
   console.log(token)
-  const findToken = User.findOne({token: token})
-  console.log(findToken.confirmed)
-  // if  ()
-  // jwt.verify(token, process.env.JWT_SECRET, function(err, decoded){
-  //   if(err){
-  //     console.log(err)
-  //     res.send(`It's some error ocured, try to reregiter in camagru.com`)
-  //   }
-  // })
-  res.send('<h1>BUENO</h1>')
+  const findUser = await User.findOne({token: token})
+  if(findUser)
+  {
+    console.log(findUser)
+    findUser.confirmed = true
+    await findUser.save()
+    console.log("User updated")
+    res.send('<h1>BUENO</h1>')
+  }
+  else{
+    res.send('<h1>Token was not found or expired, try to register again</h1>')
+  }
 }
 module.exports = {
   jwtVerify,

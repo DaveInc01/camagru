@@ -5,6 +5,7 @@ const express = require('express')
 const PORT = process.env.PORT
 const app = express()
 const {register, jwtVerify} = require('./controllers/register.js')
+const login = require('./controllers/login.js')
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://daveincmine:UayR6rNoBYWMR1so@camagrucluster.lg6pv.mongodb.net/?retryWrites=true&w=majority&appName=CamagruCluster";
 
@@ -20,6 +21,7 @@ mongoose.connect(uri)
 app.use(express.static(__dirname + '/public'))
 app.use(express.urlencoded({extended: true}))
 app.post('/register', register)
+app.post('/login', login)
 app.get('/verify-email/:token', jwtVerify)
 
 // starts a simple http server locally on port 3000
