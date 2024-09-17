@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const md5 = require('md5')
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -30,7 +31,7 @@ const userSchema = new mongoose.Schema({
     }
 })
 // middleware for hashing password when has been user.save()
-userSchema.pre('save', function (next){
+userSchema.pre('save', async function (next){
     const user = this
 
     if(!user.isModified('password'))
@@ -40,9 +41,12 @@ userSchema.pre('save', function (next){
     }
     
     console.log("User password has been hashed!")
-    user.password = md5(user.password)
+    user.password = await bcrypt.hash(user.password, saltRounds)
     next()
 }) 
 
 const User = mongoose.model('User', userSchema)
-module.exports = User
+module.exports = {
+    User,
+    saltRounds
+}
