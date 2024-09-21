@@ -1,4 +1,5 @@
 // const run = require('./connect')
+let ejs = require('ejs');
 const dotenv = require('dotenv').config();
 const path = require('path')
 const express = require('express')
@@ -18,8 +19,18 @@ mongoose.connect(uri)
 
 /* Run connection to db */
 // run().catch(console.dir)
-app.use(express.static(__dirname + '/public'))
+app.set('views', path.join(__dirname, '/views'));
+app.set('view engine', 'ejs'); // Set EJS as the templating engine
+
+app.use(express.static(__dirname + '/views/'))
 app.use(express.urlencoded({extended: true}))
+app.get('/register', (req, res)=>{
+  res.render('register')
+})
+app.get('/login', (req, res)=>{
+  const data = { username: 'JohnDoe' };
+  res.render('login', data)
+})
 app.post('/register', register)
 app.post('/login', login)
 app.get('/verify-email/:token', jwtVerify)

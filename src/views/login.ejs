@@ -16,20 +16,26 @@
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
             <div class="card bg-dark text-white" style="border-radius: 1rem;">
               <div class="card-body p-5 text-center">
-    
+      <p>Welcome, <%= username %>!</p>
                 <div class="mb-md-5 mt-md-4 pb-5">
     
-                  <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                  <h2 class="fw-bold mb-2 text-uppercase" id="login">Login</h2>
                   <p class="text-white-50 mb-5">Please enter your login and password!</p>
     
                   <div data-mdb-input-init class="form-outline form-white mb-4">
                     <input id="typeEmailX" class="form-control form-control-lg" name="email"/>
                     <label class="form-label" for="typeEmailX" for="typeEmailX">Email or username</label>
+                    <div class="invalid-feedback" id="email-error">
+                      Wrong email or username
+                    </div>
                   </div>
     
                   <div data-mdb-input-init class="form-outline form-white mb-4">
                     <input type="password" id="typePasswordX" class="form-control form-control-lg"  name="password"/>
                     <label class="form-label" for="typePasswordX" for="typePasswordX">Password</label>
+                    <div class="invalid-feedback" id="pass-error">
+                      Password doesn't match, try again
+                    </div>
                   </div>
     
                   <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
@@ -58,4 +64,5 @@
   </section>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="./scripts/auth.js"></script>
 </html>
