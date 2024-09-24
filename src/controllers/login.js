@@ -9,23 +9,6 @@ const {saltRounds, User} = require('../models/user.model')
 async function authenticateUser (login_data){
     return new Promise(async function(resolve, reject){
         let find_user = await User.findOne({username: login_data.email})
-        if(!find_user)
-            find_user = await User.findOne({email: login_data.email})
-        if(find_user)
-        {
-            const isMatch = await bcrypt.hash(login_data.password, saltRounds)
-            if(find_user.password === isMatch)
-            {
-                console.log("Login was succesfull")
-                resolve(find_user)
-                // res.sendFile(home_page_path)
-            }
-            else{   
-                console.log("Password is incorect")
-                reject('pass-error')
-                // return res.sendFile(login_page_path)
-            }
-        }
         reject('email-error')
     })
 }

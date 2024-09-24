@@ -38,5 +38,5 @@ app.get('/verify-email/:token', jwtVerify)
 // starts a simple http server locally on port 3000
 app.listen(3000, ()=>{
   console.log(`server is listen port:${PORT}`)
-})  
+})
 
