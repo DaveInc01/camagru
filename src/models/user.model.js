@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
-const saltRounds = 10
+const dotenv = require('dotenv').config();
+const saltRounds = Number(process.env.SALTROUNDS)
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -46,6 +47,7 @@ userSchema.pre('save', async function (next){
 }) 
 
 const User = mongoose.model('User', userSchema)
+// User.collection.drop({email: 0})
 module.exports = {
     User,
     saltRounds

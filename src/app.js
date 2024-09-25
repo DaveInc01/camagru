@@ -6,9 +6,11 @@ const express = require('express')
 const PORT = process.env.PORT
 const app = express()
 const {register, jwtVerify} = require('./controllers/register.js')
-const login = require('./controllers/login.js')
+const {login, login_page_data} = require('./controllers/login.js')
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://daveincmine:UayR6rNoBYWMR1so@camagrucluster.lg6pv.mongodb.net/?retryWrites=true&w=majority&appName=CamagruCluster";
+
+
 
 mongoose.connect(uri)
 .then(() => console.log('MongoDB connected successfully'))
@@ -22,14 +24,13 @@ mongoose.connect(uri)
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs'); // Set EJS as the templating engine
 
-app.use(express.static(__dirname + '/views/'))
+app.use(express.static(__dirname + '/views/')) // set the folder for the views directory
 app.use(express.urlencoded({extended: true}))
 app.get('/register', (req, res)=>{
   res.render('register')
 })
 app.get('/login', (req, res)=>{
-  const data = { username: 'JohnDoe' };
-  res.render('login', data)
+  res.render('login', login_page_data)
 })
 app.post('/register', register)
 app.post('/login', login)

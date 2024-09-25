@@ -1,8 +1,7 @@
 const dotenv = require('dotenv').config();
 const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
-const User = require('../models/user.model')
-const md5 = require('md5')
+const { User } = require('../models/user.model')
 const PORT = process.env.PORT
 
 // const jwt = dotenv.config()
@@ -13,6 +12,7 @@ auth: {
     pass: process.env.OWNERPASS
   }
 })
+
 async function compareData(user){
   let existing = await User.findOne({username: user.username})
   if(existing != null)
@@ -76,11 +76,7 @@ async function jwtVerify(req,res){
   const findUser = await User.findOne({token: token})
   if(findUser)
   {
-    console.log(findUser)
-    findUser.confirmed = true
-    await findUser.save()
-    console.log("User updated")
-    res.send('<h1>BUENO</h1>')
+
   }
   else{
     res.send('<h1>Token was not found or expired, try to register again</h1>')
