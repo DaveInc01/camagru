@@ -65,7 +65,7 @@ async function register(req, res){
     }
     }).catch((err)=>{
       console.log(err)
-      res.send("Can't save User, username or email is not unique")
+      res.send("Can't save User, username or email has already been used")
     })
     
 }
@@ -76,7 +76,9 @@ async function jwtVerify(req,res){
   const findUser = await User.findOne({token: token})
   if(findUser)
   {
-
+    findUser.confirmed = true
+    await findUser.save()
+    res.send(`<h1>Confirmation has been successfull, you can go now to <a href="http://localhost:${PORT}">Camagru.com</a></h1>`)
   }
   else{
     res.send('<h1>Token was not found or expired, try to register again</h1>')

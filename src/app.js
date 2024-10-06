@@ -9,8 +9,7 @@ const {register, jwtVerify} = require('./controllers/register.js')
 const {login, login_page_data} = require('./controllers/login.js')
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://daveincmine:UayR6rNoBYWMR1so@camagrucluster.lg6pv.mongodb.net/?retryWrites=true&w=majority&appName=CamagruCluster";
-
-
+const verifyJwt = require('./middleware/authmiddleware.js')
 
 mongoose.connect(uri)
 .then(() => console.log('MongoDB connected successfully'))
@@ -24,6 +23,7 @@ mongoose.connect(uri)
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs'); // Set EJS as the templating engine
 
+app.use(express.json())
 app.use(express.static(__dirname + '/views/')) // set the folder for the views directory
 app.use(express.urlencoded({extended: true}))
 app.get('/register', (req, res)=>{
@@ -35,6 +35,10 @@ app.get('/login', (req, res)=>{
 app.post('/register', register)
 app.post('/login', login)
 app.get('/verify-email/:token', jwtVerify)
+app.get('/', verifyJwt, (req,res)=>{
+  const authHeader = req.headers['authorization'];
+  res.render('index')
+})
 
 // starts a simple http server locally on port 3000
 app.listen(3000, ()=>{
