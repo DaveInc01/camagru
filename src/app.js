@@ -6,14 +6,14 @@ const express = require('express')
 const PORT = process.env.PORT
 const app = express()
 const {register, jwtVerify} = require('./controllers/register.js')
-const {login, login_page_data} = require('./controllers/login.js')
+const {login, login_page_data, emptyLoginData} = require('./controllers/login.js')
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://daveincmine:UayR6rNoBYWMR1so@camagrucluster.lg6pv.mongodb.net/?retryWrites=true&w=majority&appName=CamagruCluster";
 const verifyJwt = require('./middleware/authmiddleware.js')
 
 mongoose.connect(uri)
 .then(() => console.log('MongoDB connected successfully'))
-.catch((err) => {
+.catch((err) => { 
   console.error('MongoDB connection error:', err);
   process.exit(1); // Exit the process if unable to connect
 });

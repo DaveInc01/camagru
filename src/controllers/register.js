@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken')
 const { User } = require('../models/user.model')
 const PORT = process.env.PORT
 
-// const jwt = dotenv.config()
 const emailTransporter = nodemailer.createTransport({
 service: 'gmail',
 auth: {
@@ -12,16 +11,6 @@ auth: {
     pass: process.env.OWNERPASS
   }
 })
-
-async function compareData(user){
-  let existing = await User.findOne({username: user.username})
-  if(existing != null)
-    throw 'Username is already in used'
-  existing = await User.findOne({email: user.email})
-  if (existing != null)
-    throw 'Email is already in used'
-  console.log(existing)
-}
 
 async function register(req, res){
     const user_data = await req.body
@@ -34,18 +23,6 @@ async function register(req, res){
       password: user_data.password,
       token: emailToken
     }); 
-    // try{
-    //   User.collection.drop({email: 0})
-    // }
-    // catch(err){
-    //   console.log(err)
-    // }
-    // try{
-    //   await compareData(user)
-    // }
-    // catch(err){
-    //   res.send(err)
-    // }
     await user.save().then((result)=>{
       const verificationUrl = `http://localhost:${PORT}/verify-email/${emailToken}`;
       console.log(verificationUrl)
@@ -67,7 +44,6 @@ async function register(req, res){
       console.log(err)
       res.send("Can't save User, username or email has already been used")
     })
-    
 }
 
 async function jwtVerify(req,res){

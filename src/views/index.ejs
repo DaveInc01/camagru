@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./styles/index.css">                                                                                                                                              
 </head>
 <body>
-    <h1>HOME PAGE</h1>
-    <div class="video-wrap">
+    <h1>Camagru</h1>
+    <span id="ErrorMsg"></span>
+    <div class="video-wrap" id="video-block">
         <video id="video" playsinline autoplay></video>
     </div>
     <div class="controller">
@@ -18,15 +20,20 @@
     <canvas id="canvas" width="640" height="480"></canvas>
 </body>
 <script>
+    const docWidth = document.body.clientWidth;
+    const cameraWidth = docWidth > 1280 ? docWidth / 2.2 : docWidth / 1.5
+    const video_block = document.getElementById("video-block")
+    video_block.style.width = JSON.stringify(cameraWidth) + 'px'
+    console.log(JSON.stringify(cameraWidth) + 'px')
     const video = document.getElementById('video')
     const canvas = document.getElementById('canvas')
     const snap = document.getElementById('snap')
-    const errorMsgElement = document.getElementById('span#ErrorMsg')
+    const errorMsgElement = document.getElementById('ErrorMsg')
 
     const constraints = {
         audio: false,
         video : {
-            width: 1280, height: 720
+            width: cameraWidth, height: 500
         },
     }
     async function init(){

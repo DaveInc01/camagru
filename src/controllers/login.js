@@ -8,9 +8,9 @@ const {saltRounds, User} = require('../models/user.model')
 
 var login_page_data = {
     email_error_style: 'none',
-    password_error_style: 'none'
+    password_error_style: 'none',
+    alert: ''
 };
-
 
 async function authenticateUser (login_data){
     return new Promise(async function(resolve, reject){
@@ -38,9 +38,14 @@ async function authenticateUser (login_data){
     })
 }
 
-async function login(req, res){  
+function emptyLoginData(){
     login_page_data.email_error_style = 'none'
     login_page_data.password_error_style = 'none'
+    login_page_data.alert = ''
+}
+
+async function login(req, res){  
+    emptyLoginData();
     const login_data = await req.body
     await authenticateUser(login_data).then(async (find_user)=>{
         console.log('user was found')
@@ -54,15 +59,14 @@ async function login(req, res){
             }
           })
         )
-        // res.render('index', login_page_data)
     }).catch((error)=>{
         console.log(error)
         res.render('login', login_page_data)
-        // res.sendFile(login_page_path)
     })
 }
 
 module.exports = {
     login,
-    login_page_data
+    login_page_data,
+    emptyLoginData
 }
