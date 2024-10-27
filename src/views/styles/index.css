@@ -1,4 +1,20 @@
 .video-wrap {
-    background-color: #c5c5c6;
-    height: 500px;
+    background-color: #2b2b2d;
+    height: 480px;
+    position:relative
+}
+
+.camera-files{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.splide-outer{
+    position: absolute;
+    top:0;
+    left: 0;
+}
+
+.splide__slide img{
+    width: 25%;
 }
