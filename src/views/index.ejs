@@ -12,6 +12,13 @@
     <span id="ErrorMsg"></span>
     <div class="video-wrap" id="video-block">
         <video id="video" playsinline autoplay></video>
+        <div class="video-buttons">
+            <img src="./img/camera.png" alt="camera" id="camera-img">
+            <label for="uploader">
+                <img src="./img/files.png" alt="files">
+            </label>
+            <input type="file" id="uploader" style="display: none"></input>
+        </div>
     </div>
     <div class="controller">
         <button id="snap">Capture</button>
@@ -23,6 +30,7 @@
     const docWidth = document.body.clientWidth;
     const cameraWidth = docWidth > 1280 ? docWidth / 2.2 : docWidth / 1.5
     const video_block = document.getElementById("video-block")
+    const camera_img = document.getElementById("camera-img")
     video_block.style.width = JSON.stringify(cameraWidth) + 'px'
     console.log(JSON.stringify(cameraWidth) + 'px')
     const video = document.getElementById('video')
@@ -36,21 +44,24 @@
             width: cameraWidth, height: 500
         },
     }
-    async function init(){
-        try{
-            const stream = await navigator.mediaDevices.getUserMedia(constraints)
-            handleSuccess(stream)
+    camera_img.addEventListener("click", async()=>{
+        async function init(){
+            try{
+                const stream = await navigator.mediaDevices.getUserMedia(constraints)
+                handleSuccess(stream)
+            }
+            catch(err){
+                errorMsgElement.innerHTML = `navigator.mediaDevices.getUserMedia: ${err.toString()}`
+            }
         }
-        catch(err){
-            errorMsgElement.innerHTML = `navigator.mediaDevices.getUserMedia: ${err.toString()}`
+        function handleSuccess(stream){
+            console.log(stream)
+            window.stream = stream
+            video.srcObject = stream
         }
-    }
-    function handleSuccess(stream){
-        console.log(stream)
-        window.stream = stream
-        video.srcObject = stream
-    }
-    init()
+        init()
+    })
+
 
     var context = canvas.getContext('2d')
     snap.addEventListener("click", function(){

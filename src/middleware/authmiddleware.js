@@ -19,6 +19,7 @@ const verifyJwt = async (req, res, next) =>{
         login_page_data.alert = 'Token is not match'
         return res.status(401).redirect('/login')
     }
+    console.log("Success aut middleware")
     next()
 }
 

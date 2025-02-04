@@ -50,15 +50,23 @@ async function login(req, res){
     await authenticateUser(login_data).then(async (find_user)=>{
         console.log('user was found')
         const token = jwt.sign({ id: find_user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        find_user.token = token
-        await find_user.save()
-        res.redirect(url.format({
-            pathname:"/",
-            query: {
-                token: token
-            }
-          })
-        )
+        // find_user.token = token
+        // await find_user.save()
+        // res.redirect(url.format({
+        //     pathname:"/",
+        //     query: {
+        //         token: token
+        //     }
+        //   })
+        // )
+        //without saving the token in db
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: proccess.env.NODE_ENV === 'production',
+            maxAge: 36000000
+        })
+        // res.setHeader('Authorization', `Bearer ${token}`);
+        res.redirect("/");
     }).catch((error)=>{
         console.log(error)
         res.render('login', login_page_data)

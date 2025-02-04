@@ -2,3 +2,9 @@
     background-color: #c5c5c6;
     height: 500px;
 }
+
+
+.video-buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
