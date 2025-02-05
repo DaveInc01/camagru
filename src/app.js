@@ -10,7 +10,9 @@ const {login, login_page_data, emptyLoginData} = require('./controllers/login.js
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://daveincmine:UayR6rNoBYWMR1so@camagrucluster.lg6pv.mongodb.net/?retryWrites=true&w=majority&appName=CamagruCluster";
 const verifyJwt = require('./middleware/authmiddleware.js')
+const cookieParser = require('cookie-parser');
 
+app.use(cookieParser())
 mongoose.connect(uri)
 .then(() => console.log('MongoDB connected successfully'))
 .catch((err) => { 

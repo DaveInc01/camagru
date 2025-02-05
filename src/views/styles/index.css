@@ -1,20 +1,15 @@
 .video-wrap {
-<<<<<<< HEAD
-    background-color: #c5c5c6;
-    height: 500px;
-}
-
-
-.video-buttons{
-    display: flex;
-    justify-content: space-evenly;
-=======
     background-color: #2b2b2d;
     height: 480px;
+    width: 718px;
     position:relative
 }
 
-.camera-files{
+#video{
+    visibility: hidden;
+}
+
+#camera-files{
     display: flex;
     justify-content: space-evenly;
 }
@@ -23,9 +18,9 @@
     position: absolute;
     top:0;
     left: 0;
+    display: block;
 }
 
 .splide__slide img{
     width: 25%;
->>>>>>> 7c9539990629204153f5362993eb5cab410dc192
 }

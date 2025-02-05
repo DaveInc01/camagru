@@ -59,10 +59,11 @@ async function login(req, res){
         //     }
         //   })
         // )
+        
         //without saving the token in db
         res.cookie('token', token, {
             httpOnly: true,
-            secure: proccess.env.NODE_ENV === 'production',
+            // secure: proccess.env.NODE_ENV === 'production',
             maxAge: 36000000
         })
         // res.setHeader('Authorization', `Bearer ${token}`);
