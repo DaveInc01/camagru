@@ -1,3 +1,11 @@
+body{
+    background-color:cadetblue;
+}
+
+.main-camera{
+    display: flex;
+}
+
 .video-wrap {
     background-color: #2b2b2d;
     height: 480px;
@@ -5,9 +13,9 @@
     position:relative
 }
 
-#video{
+/* #video{
     visibility: hidden;
-}
+} */
 
 #camera-files{
     display: flex;
@@ -21,6 +29,6 @@
     display: block;
 }
 
-.splide__slide img{
+.icon-item img{
     width: 25%;
 }
