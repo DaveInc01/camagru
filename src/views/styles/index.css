@@ -2,20 +2,35 @@ body{
     background-color:cadetblue;
 }
 
-.main-camera{
-    display: flex;
+.shots-sidebar{
+    background-color: #434373;
+    max-height: 500px;
+    overflow: auto;
+}
+
+.main{
+    max-width: 1500px;
+    margin: auto;
 }
 
 .video-wrap {
-    background-color: #2b2b2d;
-    height: 480px;
-    width: 718px;
+    background-color: #434373;
+    max-height: 500px; 
     position:relative
 }
 
-/* #video{
-    visibility: hidden;
-} */
+.icons-sidebar{
+    max-height: 500px;
+    overflow: auto;
+}
+
+.icon-item img{
+    width: 25%;
+}
+#video{
+    
+    /* visibility: hidden; */
+}
 
 #camera-files{
     display: flex;
@@ -29,6 +44,3 @@ body{
     display: block;
 }
 
-.icon-item img{
-    width: 25%;
-}

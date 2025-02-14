@@ -10,46 +10,43 @@
 </head>
 <body>
     <h1>Camagru</h1>
-    <div class="main">
-        <div class="main-camera">
-            <div class="video-wrap" id="video-block">
-                <div class="splide-outer">
-                    <section class="splide" aria-labelledby="carousel-heading" id="splide-inner">
-                        <div class="splide__track">
-                              
-                        </div>
-                      </section>
-                </div>
-                <video id="video" playsinline autoplay>
-                    <canvas id="canvas" width="100%"></canvas>
-                </video>
-                <div id="camera-files">
-                    <img src="./img/camera.png" alt="camera" id="camera-png">
-                    <input type="file" id="files" style="display: none;">
-                    <label for="files">
-                        <img src="./img/folder.png" alt="files">
-                    </label>
-                </div>
-            </div>
-            <div class="icons-sidebar">
-                <ul>
-                    <li class="icon-item"><img src="./img/stickers/bee.png" alt=""></li>
-                    <li class="icon-item"><img src="./img/stickers/chick.png" alt=""></li>
-                    <li class="icon-item"><img src="./img/stickers/coala.png" alt=""></li>
-                    <li class="icon-item"><img src="./img/stickers/dog.png" alt=""></li>
-                    <li class="icon-item"><img src="./img/stickers/elephant.png" alt=""></li>
-                </ul>
-            </div>   
+      
+    <div class="main grid grid-cols-12 gap-4">
+        <div class="shots-sidebar col-span-3">
+          <h1 class="text-center">Your Photos here</h1>
         </div>
-             
+        <div class="video-wrap col-span-6" id="video-block">
+            <video id="video" playsinline autoplay>
+                </video>
+    <canvas id="canvas" style="display: none;"></canvas>
+            <div id="camera-files">
+                <img src="./img/camera.png" alt="camera" id="camera-png">
+                <input type="file" id="files" style="display: none;" accept=".jpg, .jpeg, .png">
+                <label for="files" accept=".jpg, .jpeg, .png">
+                    <img src="./img/folder.png" alt="files">
+                </label>
+            </div>
+        </div>
+        <div class="icons-sidebar col-span-3">
+            <ul>
+                <li class="icon-item"><img id="first_img" src="./img/stickers/bee.png" alt=""></li>
+                <li class="icon-item"><img src="./img/stickers/chick.png" alt=""></li>
+                <li class="icon-item"><img src="./img/stickers/coala.png" alt=""></li>
+                <li class="icon-item"><img src="./img/stickers/dog.png" alt=""></li>
+                <li class="icon-item"><img src="./img/stickers/elephant.png" alt=""></li>
+            </ul>
+        </div>   
         <div class="controller">
             <button id="snap">Capture</button>
         </div>
         <div class="item" style="width: 100px; height: 100px; background-color: brown;">
         </div>
     </div>
+    <div id="div"></div>
+    
 </body>
 <!-- <script src="./scripts/splide-4.1.3/dist/js/splide.min.js"></script> -->
+<script src="https://cdn.tailwindcss.com"></script>
 <script src="./scripts/index.js"></script>
 <script src="./scripts/drag.js" type="module"></script>
 </html>
