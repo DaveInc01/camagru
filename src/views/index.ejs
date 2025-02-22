@@ -16,9 +16,8 @@
           <h1 class="text-center">Your Photos here</h1>
         </div>
         <div class="video-wrap col-span-6" id="video-block">
-            <video id="video" playsinline autoplay>
-                </video>
-    <canvas id="canvas" style="display: none;"></canvas>
+            <video id="video" playsinline autoplay></video>
+            <canvas id="canvas" style="display: none; width: 100%;"></canvas>
             <div id="camera-files">
                 <img src="./img/camera.png" alt="camera" id="camera-png">
                 <input type="file" id="files" style="display: none;" accept=".jpg, .jpeg, .png">
@@ -47,6 +46,7 @@
 </body>
 <!-- <script src="./scripts/splide-4.1.3/dist/js/splide.min.js"></script> -->
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="./scripts/icon_drag.js"></script>
 <script src="./scripts/index.js"></script>
 <script src="./scripts/drag.js" type="module"></script>
 </html>
