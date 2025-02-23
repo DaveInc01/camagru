@@ -8,16 +8,12 @@ var context = canvas.getContext('2d')
 const snap = document.getElementById('snap')
 const errorMsgElement = document.getElementById('ErrorMsg')
 let camera_is_on = false;
-
+var background_image;
 
 
 const constraints = {
     video: true,
     audio: false,
-    // video : {
-    //     width:800,
-    //     height: 500
-    // },
 }
 camera_img.addEventListener("click", async()=>{
     async function init(){
@@ -34,7 +30,6 @@ camera_img.addEventListener("click", async()=>{
         video.srcObject = stream
         camera_is_on = true
         camera_files.style.display = 'none'
-        console.log("video.width - ", video.width)
     }
     init()
 })
@@ -42,8 +37,11 @@ camera_img.addEventListener("click", async()=>{
 snap.addEventListener("click", function(){
 
     // updateImage(video)
-    
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    background_image = video
+    console.log(background_image.style.width)
+    canvas.width = background_image.clientWidth
+    canvas.height = background_image.clientHeight
+    context.drawImage(background_image, 0, 0, canvas.width, canvas.width);
 
     // Show canvas, hide video
     canvas.style.display = "block";
@@ -56,12 +54,12 @@ file_input.addEventListener("change", function(){
     camera_files.style.display = 'none'
     const curFiles = file_input.files
     for (const file of curFiles) {
-        let image = document.createElement("img");
-        image.src = URL.createObjectURL(file);
-        image.alt = image.title = file.name;
-        console.log(image)
-        image.onload = () => {
-            updateImage(image)    
+        background_image = document.createElement("img");
+        background_image.src = URL.createObjectURL(file);
+        background_image.alt = background_image.title = file.name;
+        console.log(background_image)
+        background_image.onload = () => {
+            updateImage(background_image)    
         }
     }
     mainImageIsReadyChange()

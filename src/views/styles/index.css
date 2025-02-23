@@ -15,8 +15,7 @@ body{
 
 .video-wrap {
     width: 100%;
-    /* max-width: 400px; Limit maximum width */
-    aspect-ratio: 16 / 9; /* Maintain aspect ratio */
+    aspect-ratio: 16 / 9;
     overflow: hidden;
     background: rgb(101, 99, 99);
     position:relative
@@ -31,9 +30,9 @@ body{
     width: 25%;
 }
 #video{
-    width: 100%;
+    margin: auto;
     height: 100%;
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
 #camera-files{
@@ -44,6 +43,11 @@ body{
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+}
+#canvas{
+    display: none;
+    width: 100%;
+    margin: auto;
 }
 
 .splide-outer{

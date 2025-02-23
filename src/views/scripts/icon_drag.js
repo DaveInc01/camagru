@@ -1,8 +1,9 @@
 const icon_items = document.querySelectorAll(".icon-item")
 
-
 var is_drag = false
 var drag_icon_index = null;
+var current_x = null;
+var current_y = null;
 var mouse_coordinate = {
     x: null,
     y: null
@@ -11,20 +12,20 @@ var mouse_coordinate = {
 let icons_on_canvas = []
 
 function updateCanvas(){
+    context.clearRect(0,0,canvas.width,canvas.height)
+    context.drawImage(background_image, 0, 0, canvas.width, canvas.height)
     for(icon of icons_on_canvas){
         if(icon.image.src){
-            // const dublicate_icon = new Image()
-            // dublicate_icon.src = icon.image.src
-            context.drawImage(icon.image, 0,0, icon.w, icon.h)
-            console.log(icon.image)
+            // icon.image.onload = ()=>{
+                context.drawImage(icon.image, icon.x, icon.y, icon.w, icon.h)
+            // }
         }
     }
 }
 
 function isOnImage(e)
 {
-    console.log(e)
-
+    // console.log(e)
     // for(icon of icon_items){
         
     // }
@@ -50,6 +51,8 @@ function getMouseCoordinate(event){
 function isClickedOnIcon(event){
     drag_icon_index = 0
     is_drag = false
+    current_x = null
+    current_y = null
     getMouseCoordinate(event)
     for(icon of icons_on_canvas){
         if((mouse_coordinate.x >= icon.x && mouse_coordinate.x <= icon.x + icon.w)
@@ -57,6 +60,8 @@ function isClickedOnIcon(event){
         {
             console.log("Clicked on icon")
             is_drag = true
+            current_x = mouse_coordinate.x
+            current_y = mouse_coordinate.y
             return true;
         }
         drag_icon_index++;
@@ -72,11 +77,24 @@ function mouseDown(event){
 }
 
 function mouseMove(event){
+    event.preventDefault()
     if(is_drag){
         getMouseCoordinate(event)
-        icons_on_canvas[drag_icon_index].x = 
-        // console.log('x - ', mouse_coordinate.x, '\ny - ', mouse_coordinate.y)
+        let diff_x = mouse_coordinate.x - current_x
+        let diff_y = mouse_coordinate.y - current_y
+        console.log("current x - ", current_x)
+        icons_on_canvas[drag_icon_index].x += diff_x
+        icons_on_canvas[drag_icon_index].y += diff_y
+        // console.log("old  x - ", current_x)
+        // console.log("old  y - ", current_y)
         
+        // console.log("new  x - ", icons_on_canvas[drag_icon_index].x)
+        // console.log("new  y - ", icons_on_canvas[drag_icon_index].y)
+        console.log("diffX - ", diff_x)
+        current_x = mouse_coordinate.x    
+        current_y = mouse_coordinate.y
+        // console.log('x - ', mouse_coordinate.x, '\ny - ', mouse_coordinate.y)
+        updateCanvas()
     }
     return 
     // console.log("Mouse is moving")
@@ -86,11 +104,13 @@ function mouseMove(event){
     // console.log(event)
 }
 
-function mouseOut(){
+function mouseOut(event){
+    event.preventDefault()
     is_drag = false
 }
 
-function mouseUp(){
+function mouseUp(event){
+    event.preventDefault()
     is_drag = false
 }
 
@@ -101,16 +121,19 @@ canvas.onmouseup = mouseUp
 
 
 function mainImageIsReadyChange(){
-    // updateCanvas()
     for(let icon of icon_items){
         icon.addEventListener('click', ()=>{
             const icon_img = icon.querySelector("img")
             const dublicate_icon = new Image()
             dublicate_icon.src = icon_img.src
-            // document.body.appendChild(dublicate_icon)
-            icons_on_canvas.push({image: dublicate_icon, x:0, y: 0, w:dublicate_icon.width, h:dublicate_icon.height})
-            updateCanvas()
-            // context.drawImage(dublicate_icon, 0,0, dublicate_icon.width, dublicate_icon.height)
+            
+            // updateCanvas()
+            dublicate_icon.onload = () =>{
+                icons_on_canvas.push({image: dublicate_icon, x:0, y: 0, w:dublicate_icon.width, h:dublicate_icon.height})
+                updateCanvas()
+                // context.drawImage(dublicate_icon, 0,0, dublicate_icon.width, dublicate_icon.height)
+            }
+           
         })
     }
 }
