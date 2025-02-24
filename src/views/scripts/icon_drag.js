@@ -44,7 +44,7 @@ function getMouseCoordinate(event){
     const y = (event.clientY - rect.top) * scaleY;
     mouse_coordinate.x = x;
     mouse_coordinate.y = y;
-    console.log(`Clicked at canvas coordinates: (${x.toFixed()}, ${y.toFixed()})`);
+    // console.log(`Clicked at canvas coordinates: (${x.toFixed()}, ${y.toFixed()})`);
     return mouse_coordinate;
 }
 
@@ -82,7 +82,7 @@ function mouseMove(event){
         getMouseCoordinate(event)
         let diff_x = mouse_coordinate.x - current_x
         let diff_y = mouse_coordinate.y - current_y
-        console.log("current x - ", current_x)
+        // console.log("current x - ", current_x)
         icons_on_canvas[drag_icon_index].x += diff_x
         icons_on_canvas[drag_icon_index].y += diff_y
         // console.log("old  x - ", current_x)
@@ -90,7 +90,7 @@ function mouseMove(event){
         
         // console.log("new  x - ", icons_on_canvas[drag_icon_index].x)
         // console.log("new  y - ", icons_on_canvas[drag_icon_index].y)
-        console.log("diffX - ", diff_x)
+        // console.log("diffX - ", diff_x)
         current_x = mouse_coordinate.x    
         current_y = mouse_coordinate.y
         // console.log('x - ', mouse_coordinate.x, '\ny - ', mouse_coordinate.y)
@@ -126,7 +126,14 @@ function mainImageIsReadyChange(){
             const icon_img = icon.querySelector("img")
             const dublicate_icon = new Image()
             dublicate_icon.src = icon_img.src
-            
+            // dublicate_icon.width = icon_img.width
+            // dublicate_icon.height = icon_img.height
+            // if(dublicate_icon.width  < 150){
+            //     dublicate_icon.width = 150
+            //     dublicate_icon.height = 200
+            // }
+            // console.log(dublicate_icon.clientWidth, dublicate_icon.clientHeight)
+            console.log(dublicate_icon.width)
             // updateCanvas()
             dublicate_icon.onload = () =>{
                 icons_on_canvas.push({image: dublicate_icon, x:0, y: 0, w:dublicate_icon.width, h:dublicate_icon.height})

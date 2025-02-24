@@ -10,9 +10,11 @@ const errorMsgElement = document.getElementById('ErrorMsg')
 let camera_is_on = false;
 var background_image;
 
-
 const constraints = {
-    video: true,
+    video: {
+        width: { ideal: 1920 }, // Try 1920 for Full HD
+        height: { ideal: 1080 } // Set height accordingly
+    },
     audio: false,
 }
 camera_img.addEventListener("click", async()=>{
@@ -22,7 +24,7 @@ camera_img.addEventListener("click", async()=>{
             handleSuccess(stream)
         }
         catch(err){
-            errorMsgElement.innerHTML = `navigator.mediaDevices.getUserMedia: ${err.toString()}`
+            console.log(`navigator.mediaDevices.getUserMedia: ${err.toString()}`)
         }
     }
     function handleSuccess(stream){
@@ -30,6 +32,7 @@ camera_img.addEventListener("click", async()=>{
         video.srcObject = stream
         camera_is_on = true
         camera_files.style.display = 'none'
+        
     }
     init()
 })
@@ -38,14 +41,14 @@ snap.addEventListener("click", function(){
 
     // updateImage(video)
     background_image = video
-    console.log(background_image.style.width)
     canvas.width = background_image.clientWidth
     canvas.height = background_image.clientHeight
-    context.drawImage(background_image, 0, 0, canvas.width, canvas.width);
-
+    context.drawImage(background_image, 0, 0,  background_image.clientWidth,  background_image.clientHeight);
+    video.pause()
     // Show canvas, hide video
     canvas.style.display = "block";
     video.style.display = "none";
+
     mainImageIsReadyChange()
 })
 const file_input = document.getElementById("files")

@@ -57,3 +57,22 @@ body{
     display: block;
 }
 
+.canvas-footer img{
+    cursor: pointer;
+}
+
+.canvas-footer{
+    position: absolute;
+    bottom: 0;
+}
+
+#snap_icon{
+    left: 50%;
+    transform: translate(-50%);
+}
+
+#control-panel{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
