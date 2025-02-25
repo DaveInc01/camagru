@@ -15,7 +15,9 @@ body{
 
 .video-wrap {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    max-height: 400px;
+    overflow: hidden;
+    /* aspect-ratio: 16 / 9; */
     overflow: hidden;
     background: rgb(101, 99, 99);
     position:relative
@@ -30,8 +32,7 @@ body{
     width: 25%;
 }
 #video{
-    margin: auto;
-    height: 100%;
+    /* margin: auto; */
     /* visibility: hidden; */
 }
 

@@ -12,7 +12,10 @@ var background_image;
 
 
 const constraints = {
-    video: true,
+    video: {
+        width: { exact: 1920 }, // Try 1920 for Full HD
+        height: { exact: 1080 } // Set height accordingly
+    },
     audio: false,
 }
 camera_img.addEventListener("click", async()=>{
@@ -22,7 +25,7 @@ camera_img.addEventListener("click", async()=>{
             handleSuccess(stream)
         }
         catch(err){
-            errorMsgElement.innerHTML = `navigator.mediaDevices.getUserMedia: ${err.toString()}`
+            console.log(`navigator.mediaDevices.getUserMedia: ${err.toString()}`)
         }
     }
     function handleSuccess(stream){
