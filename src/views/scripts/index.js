@@ -5,10 +5,12 @@ const camera_files = document.getElementById("camera-files")
 const video = document.getElementById('video')
 const canvas = document.getElementById('canvas')
 var context = canvas.getContext('2d')
-const snap = document.getElementById('snap')
+const snap = document.getElementById('snap_icon')
 const errorMsgElement = document.getElementById('ErrorMsg')
+const canvas_footer_buttons = document.getElementById("canvas-footer-buttons")
 let camera_is_on = false;
 var background_image;
+var is_video_snap = false;
 
 const constraints = {
     video: {
@@ -32,7 +34,7 @@ camera_img.addEventListener("click", async()=>{
         video.srcObject = stream
         camera_is_on = true
         camera_files.style.display = 'none'
-        
+        snap.style.display = 'block'
     }
     init()
 })
@@ -48,7 +50,9 @@ snap.addEventListener("click", function(){
     // Show canvas, hide video
     canvas.style.display = "block";
     video.style.display = "none";
-
+    snap.display = 'none'
+    canvas_footer_buttons.style.display = 'flex'
+    is_video_snap = true
     mainImageIsReadyChange()
 })
 const file_input = document.getElementById("files")
@@ -70,8 +74,8 @@ file_input.addEventListener("change", function(){
 
 function updateImage(image){
 
-    const maxWidth = 1600;  // Set your desired max width
-    const maxHeight = 900; // Set your desired max height
+    const maxWidth = 1600;  
+    const maxHeight = 900; 
 
     let imgWidth = image.naturalWidth;
     let imgHeight = image.naturalHeight;
