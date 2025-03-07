@@ -9,16 +9,18 @@ const snap = document.getElementById('snap_icon')
 const errorMsgElement = document.getElementById('ErrorMsg')
 const canvas_footer_buttons = document.getElementById("canvas-footer-buttons")
 let camera_is_on = false;
-var background_image;
+var background_image = {img: null, width: null, height: null};
 var is_video_snap = false;
 
 const constraints = {
     video: {
-        width: { ideal: 1920 }, // Try 1920 for Full HD
-        height: { ideal: 1080 } // Set height accordingly
+      width: { ideal: 1280, min: 640, max: 1920 },  // Preferred 1280px, but allows 640-1920px
+      height: { ideal: 720, min: 360, max: 1080 },  // Preferred 720px, but allows 360-1080px
+      aspectRatio: { ideal: 16 / 9 }  // Try to maintain 16:9 ratio
     },
-    audio: false,
+    audio: false
 }
+
 camera_img.addEventListener("click", async()=>{
     async function init(){
         try{
@@ -35,6 +37,12 @@ camera_img.addEventListener("click", async()=>{
         camera_is_on = true
         camera_files.style.display = 'none'
         snap.style.display = 'block'
+
+        const track = stream.getVideoTracks()[0];  
+        const settings = track.getSettings();
+        background_image.actualWidth = 
+        console.log("Actual Width:", settings.width);
+        console.log("Actual Height:", settings.height);
     }
     init()
 })
@@ -42,9 +50,10 @@ camera_img.addEventListener("click", async()=>{
 snap.addEventListener("click", function(){
 
     // updateImage(video)
-    background_image = video
+    background_image.img = video
     canvas.width = background_image.clientWidth
     canvas.height = background_image.clientHeight
+    console.log(background_image.clientWidth, background_image.clientHeight)
     context.drawImage(background_image, 0, 0,  background_image.clientWidth,  background_image.clientHeight);
     video.pause()
     // Show canvas, hide video
@@ -61,7 +70,7 @@ file_input.addEventListener("change", function(){
     camera_files.style.display = 'none'
     const curFiles = file_input.files
     for (const file of curFiles) {
-        background_image = document.createElement("img");
+        background_image.img = document.createElement("img");
         background_image.src = URL.createObjectURL(file);
         background_image.alt = background_image.title = file.name;
         console.log(background_image)
@@ -74,8 +83,8 @@ file_input.addEventListener("change", function(){
 
 function updateImage(image){
 
-    const maxWidth = 1600;  
-    const maxHeight = 900; 
+    const maxWidth = 1280;  
+    const maxHeight = 720; 
 
     let imgWidth = image.naturalWidth;
     let imgHeight = image.naturalHeight;
@@ -99,4 +108,5 @@ function updateImage(image){
     // Show canvas, hide video
     canvas.style.display = "block";
     video.style.display = "none";
+    // canvas_footer_buttons.style.display = 'flex'
 }

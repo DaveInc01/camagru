@@ -1,5 +1,4 @@
 const icon_items = document.querySelectorAll(".icon-item")
-
 var is_drag = false
 var drag_icon_index = null;
 var current_x = null;
@@ -13,7 +12,7 @@ let icons_on_canvas = []
 
 function updateCanvas(){
     context.clearRect(0,0,canvas.width,canvas.height)
-    context.drawImage(background_image, 0, 0, canvas.width, canvas.height)
+    context.drawImage(background_image.img, 0, 0, canvas.width, canvas.height)
     for(icon of icons_on_canvas){
         if(icon.image.src){
             // icon.image.onload = ()=>{
@@ -133,7 +132,8 @@ function mainImageIsReadyChange(){
             //     dublicate_icon.height = 200
             // }
             // console.log(dublicate_icon.clientWidth, dublicate_icon.clientHeight)
-            console.log(dublicate_icon.width)
+            console.log("icon width - ",dublicate_icon.width)
+            console.log("image width - ", background_image.clientWidth)
             // updateCanvas()
             dublicate_icon.onload = () =>{
                 icons_on_canvas.push({image: dublicate_icon, x:0, y: 0, w:dublicate_icon.width, h:dublicate_icon.height})
